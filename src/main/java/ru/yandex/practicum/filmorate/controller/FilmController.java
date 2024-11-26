@@ -14,17 +14,24 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/film")
+@RequestMapping("/films")
 @RequiredArgsConstructor
 @Slf4j
 public class FilmController {
     private final FilmService service;
 
+    @GetMapping
+    public Collection<Film> findAllFilm() {
+        log.info("findAllFilm()");
+        return service.findAll();
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Film saveFilm(@Valid @RequestBody Film film) {
-        log.info("createFilm(film)");
-        return service.save(film);
+        log.info("saveFilm(film)");
+        service.save(film);
+        return film;
     }
 
     @PutMapping
@@ -34,38 +41,36 @@ public class FilmController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Film> findByIdFilm(@Valid @PathVariable long id) {
-        log.info("findByIdFilm(id)");
+    public Optional<Film> findByIdFilm(@Valid @PathVariable Long id) {
+        log.info("findByIdFilm(/{id})");
         return service.findById(id);
     }
 
-    @GetMapping
-    public Collection<Film> findAllFilm() {
-        log.info("findAllFilm()");
-        return service.findAll();
-    }
 
     @DeleteMapping("/{id}")
-    public void deleteByIdFilm(@Valid @PathVariable long id) {
-        log.info("deleteByIdFilm(id)");
+    public void deleteByIdFilm(@Valid @PathVariable Long id) {
+        log.info("deleteByIdFilm(/{id})");
         service.deleteById(id);
     }
 
     @PutMapping(value = "/{id}/like/{userId}")
-    public Film addLike(@NotNull @PathVariable long id,
-                        @NotNull @PathVariable long userId) {
+    public Film addLike(@NotNull @PathVariable Long id,
+                        @NotNull @PathVariable Long userId) {
+        log.info("addLike(/{id}/like/{userId})");
         return service.addLike(id, userId);
     }
 
     @DeleteMapping(value = "/{id}/like/{userId}")
-    public Film deleteLike(@NotNull @PathVariable long id,
-                           @NotNull @PathVariable long userId) {
+    public Film deleteLike(@NotNull @PathVariable Long id,
+                           @NotNull @PathVariable Long userId) {
+        log.info("deleteLike(/{id}/like/{userId})");
         return service.deleteLike(id, userId);
     }
 
     @GetMapping("/popular")
     public List<Film> getPopularFilms(
             @RequestParam(required = false, defaultValue = "10") int count) {
+        log.info("getPopularFilms(/popular)");
         return service.getPopular(count);
     }
 }

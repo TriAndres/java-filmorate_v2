@@ -7,9 +7,9 @@ import java.util.Map;
 public interface UserStorage {
     User save(User user);
 
-    User findById(long userId);
+    User findById(Long userId);
 
     Map<Long, User> findAll();
 
-    void deleteById(long id);
+    void deleteById(Long id);
 }

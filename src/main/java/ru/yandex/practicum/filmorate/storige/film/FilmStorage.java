@@ -7,9 +7,9 @@ import java.util.Map;
 public interface FilmStorage {
     Film save(Film film);
 
-    Film findById(long userId);
+    Film findById(Long userId);
 
     Map<Long, Film> findAll();
 
-    void deleteById(long id);
+    void deleteById(Long id);
 }

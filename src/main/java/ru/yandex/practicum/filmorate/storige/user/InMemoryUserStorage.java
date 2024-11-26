@@ -5,17 +5,20 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @Repository
 public class InMemoryUserStorage implements UserStorage {
 
     private final Map<Long, User> userMap = new HashMap<>();
+
     @Override
     public User save(User user) {
-        return userMap.put(user.getId(), user);
+        userMap.put(user.getId(), user);
+        return user;
     }
 
     @Override
-    public User findById(long userId) {
+    public User findById(Long userId) {
         return userMap.get(userId);
     }
 
@@ -25,7 +28,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         userMap.remove(id);
     }
 }
