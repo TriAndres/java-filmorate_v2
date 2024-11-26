@@ -7,6 +7,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storige.film.InMemoryFilmStorage;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,10 @@ public class FilmService {
         return filmStorage.save(film);
     }
 
+    public Film updateFilm(Film newFilm) {
+        return null;
+    }
+
     public Optional<Film> findById(long userId) {
         return Optional.ofNullable(filmStorage.findById(userId));
     }
@@ -29,5 +34,26 @@ public class FilmService {
 
     public void deleteById(long id) {
         filmStorage.deleteById(id);
+    }
+
+    public Film addLike(long id, long userId) {
+        return null;
+    }
+
+    public Film deleteLike(long id, long userId) {
+        return null;
+    }
+
+    public List<Film> getPopular(int count) {
+        return null;
+    }
+
+    private Long getNextId() {
+        long currentMaxId = filmStorage.findAll().values()
+                .stream()
+                .mapToLong(Film::getId)
+                .max()
+                .orElse(0);
+        return ++currentMaxId;
     }
 }
