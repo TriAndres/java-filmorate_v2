@@ -20,12 +20,6 @@ import java.util.Optional;
 public class FilmController {
     private final FilmService service;
 
-    @GetMapping
-    public Collection<Film> findAllFilm() {
-        log.info("findAllFilm()");
-        return service.findAll();
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Film saveFilm(@Valid @RequestBody Film film) {
@@ -51,6 +45,12 @@ public class FilmController {
     public void deleteByIdFilm(@Valid @PathVariable Long id) {
         log.info("deleteByIdFilm(/{id})");
         service.deleteById(id);
+    }
+
+    @GetMapping
+    public Collection<Film> findAllFilm() {
+        log.info("findAllFilm()");
+        return service.findAll();
     }
 
     @PutMapping(value = "/{id}/like/{userId}")

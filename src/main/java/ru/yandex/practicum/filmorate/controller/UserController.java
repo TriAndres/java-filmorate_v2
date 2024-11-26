@@ -19,12 +19,6 @@ import java.util.Optional;
 public class UserController {
     private final UserService service;
 
-    @GetMapping
-    public Collection<User> findAll() {
-        log.info("findAll()");
-        return service.findAll();
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User saveFilm(@Valid @RequestBody User user) {
@@ -47,8 +41,14 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public void deleteByIdUser(@Valid @PathVariable Long id) {
-        log.info("findAll(/{id})");
+        log.info("deleteByIdUser(/{id})");
         service.deleteById(id);
+    }
+
+    @GetMapping
+    public Collection<User> findAllFilm() {
+        log.info("findAllFilm()");
+        return service.findAll();
     }
 
     @PutMapping(value = "/{id}/friends/{friendId}")
