@@ -74,7 +74,7 @@ public class FilmService {
             throw new FilmDoesNotExistException("Отсутствует пользователь");
         }
         Film film = filmStorage.findById(id);
-        film.addLike(userId);
+        film.getLikes().add(userId);
         filmStorage.save(film);
         log.info("Лайк добавлен {}", film.getLikes());
         return film;
@@ -87,7 +87,8 @@ public class FilmService {
             log.error("Отсутствует пользователь");
             throw new UserDoesNotExistException("Отсутствует пользователь");
         }
-        film.deleteLike(userId);
+        film.getLikes().remove(userId);
+        filmStorage.save(film);
         log.info("Лайк удален {}", film.getLikes());
         return film;
     }

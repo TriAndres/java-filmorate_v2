@@ -63,8 +63,8 @@ public class UserService {
         User user = userStorage.findById(id);
         User userFriend = userStorage.findById(friendId);
         log.info("Пользователи: 1{},2{}", user, userFriend);
-        userFriend.addFriend(id);
-        user.addFriend(friendId);
+        userFriend.getFriends().add(id);
+        user.getFriends().add(friendId);
         userStorage.save(userFriend);
         userStorage.save(user);
         log.info("Добавлен пользователь 1:{}, 2:{}", user.getFriends(), userFriend.getFriends());
@@ -78,8 +78,10 @@ public class UserService {
         User user = userStorage.findById(id);
         User userFriend = userStorage.findById(friendId);
         log.info("Пользователи: 1{},2{}", user, userFriend);
-        userFriend.removeFriend(id);
-        user.removeFriend(friendId);
+        userFriend.getFriends().remove(id);
+        user.getFriends().remove(friendId);
+        userStorage.save(userFriend);
+        userStorage.save(user);
         log.info("Список друзей после удаления: user: {}, userFriend: {}",
                 user.getFriends(), userFriend.getFriends());
         return user;
